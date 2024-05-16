@@ -3,33 +3,45 @@ const readline = require("node:readline");
 const fs = require('node:fs');
 const result=fs.readFileSync('data.json', 'utf8');
 const data = JSON.parse(result);
-const random=Math.floor(Math.random() * (data.length-1));
-let winner=false;
+let next=0;
+let winner=0;
+let maxQuiz=data.length-1;
+let rl;
 
-const rl = readline.createInterface({
+rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: `Pertanyaan : data ${data[random].definition} \nJawaban : `, 
+  prompt: `Pertanyaan : data ${data[next].definition} \nJawaban : `, 
 });
-
 
 rl.prompt();  
 
-rl.on("line", (line) => {
-    winner = false;
-   
-    if (data[random].term.toUpperCase().trim()==line.toUpperCase().trim()){
-        winner=true;
+rl.on("line", (line) => {  
+    if (data[next].term.toUpperCase().trim()==line.toUpperCase().trim()){
+        winner++;
         console.log('Selamat Anda benar !');
     }  else{
-        winner=false;
         console.log('Wwkkk, Anda belum beruntung !');
     }
+
+ 
+    if (next == maxQuiz ){
+      
+        if (winner==(maxQuiz+1)) {
+            console.log('Hore Anda Menang!');
+         }
+        process.exit(0);
+    }
+    next++
+ 
+    rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        prompt: `Pertanyaan : data ${data[next].definition} \nJawaban : `, 
+    });
+   
     rl.prompt(); 
 }).on("close", (line) => {
-    if (winner=true) {
-       console.log('Hore Anda Menang!');
-    }
     process.exit(0);
 
 });
