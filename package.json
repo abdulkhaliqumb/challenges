@@ -1,0 +1,12 @@
+{
+  "name": "tugas17",
+  "version": "1.0.0",
+  "description": "Calculator",
+  "main": "Run.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "abdul khaliq",
+  "license": "ISC"
+}
